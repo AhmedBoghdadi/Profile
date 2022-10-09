@@ -49,7 +49,7 @@
         }
     </style>
 </head>
-<body  onmousedown="return false" onkeydown="return false" oncontextmenu="return false" style="margin:10px;padding:0px;">
+<body  style="margin:10px;padding:0px;">
     <br/>
     <div style="border: 3px solid darkgreen;">
     <br/>
@@ -81,5 +81,14 @@
     </div>
     </div>
     <br/>
+    <script>
+        const body=document.body;
+        window.isTch=-1;
+        body.onmousedown=()=>false;body.onkeydown=()=>false;body.oncontextmenu=()=>false;
+        body.addEventListener('mousedown',(event)=>{window.isTch=event.clientY;});
+        body.addEventListener('keydown',(event)=>{if(event.key==='ArrowUp'){window.scrollTo(0,window.pageYOffset-111)}else if(event.key==='ArrowDown'){window.scrollTo(0,window.pageYOffset+111)}})
+        body.onmouseup=()=>{window.isTch=-1;}
+        body.onmousemove=(event)=>{if(window.isTch<0){return true;} if(window.isTch>event.clientY){window.scrollTo(0,window.pageYOffset+(window.isTch-event.clientY))}else if(window.isTch<event.clientY){window.scrollTo(0,window.pageYOffset-(event.clientY-window.isTch))}}
+    </script>
 </body>
 </html>
